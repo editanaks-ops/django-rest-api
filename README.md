@@ -45,6 +45,42 @@ http://127.0.0.1:8000/api/docs/
 
 ---
 
-##  Автор
+## Уровни реализации
 
-Edita (начинающий backend-разработчик )
+### LITE
+- Созданы модели Book и Category
+- Реализован CRUD для книг и категорий
+- Настроены базовые API endpoints
+
+### PRO
+- Добавлена связь Book → Category (ForeignKey)
+- Реализован вложенный вывод книг внутри категории
+- Использованы вложенные сериализаторы
+- Добавлен отдельный endpoint для получения категории с книгами
+
+---
+
+## Эндпоинты
+
+### Books
+- GET /api/books/
+- POST /api/books/
+- GET /api/books/<id>/
+- PUT /api/books/<id>/
+- DELETE /api/books/<id>/
+
+### Categories
+- GET /api/categories/
+- POST /api/categories/
+- GET /api/categories/<id>/
+
+### PRO (вложенные данные)
+- GET /api/categories/<id>/detail/
+
+---
+
+## Технологии
+
+- Python
+- Django
+- Django REST Framework
