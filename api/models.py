@@ -16,6 +16,12 @@ class Book(models.Model):
     isbn = models.CharField(max_length=13, unique=True, verbose_name="ISBN")
     page_count = models.PositiveIntegerField(verbose_name="Количество страниц")
     cover = models.URLField(blank=True, verbose_name="Обложка книги (URL)")
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        related_name="books",
+        verbose_name="Категория"
+    )
 
     def __str__(self):
         return self.title

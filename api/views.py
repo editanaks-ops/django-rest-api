@@ -6,7 +6,8 @@ from rest_framework.generics import RetrieveUpdateDestroyAPIView
 from .models import Category
 from .serializers import CategorySerializer
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-
+from .serializers import CategoryDetailSerializer
+from rest_framework.generics import RetrieveAPIView
 
 class CategoryListCreateAPIView(ListCreateAPIView):
     queryset = Category.objects.all()
@@ -40,3 +41,8 @@ class BookDetailAPIView(RetrieveUpdateDestroyAPIView):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
+
+class CategoryDetailWithBooksAPIView(RetrieveAPIView):
+    queryset = Category.objects.prefetch_related('books')
+    serializer_class = CategoryDetailSerializer

@@ -1,12 +1,22 @@
 from rest_framework import serializers
-from .models import Book
-from .models import Category
+from .models import Book, Category
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
+
+
 class BookSerializer(serializers.ModelSerializer):
+    category = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all()
+    )
+    category_name = serializers.CharField(
+        source='category.name',
+        read_only=True
+    )
+
     class Meta:
         model = Book
         fields = '__all__'
@@ -18,3 +28,11 @@ class BookSerializer(serializers.ModelSerializer):
             'page_count': {'help_text': 'Количество страниц'},
             'cover': {'help_text': 'Ссылка на изображение обложки'},
         }
+
+
+class CategoryDetailSerializer(serializers.ModelSerializer):
+    books = BookSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Category
+        fields = ['id', 'name', 'description', 'books']
